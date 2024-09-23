@@ -262,24 +262,24 @@ export default function DatabaseRecoveryGame() {
   const handleAnswer = (option) => {
     setSelectedOption(option);
     setShowOutcome(true);
-    setScore(prevScore => Math.max(-5, Math.min(5, prevScore + option.score)));
+    setScore(prevScore => Math.max(-10, Math.min(10, prevScore + option.score)));
   };
 
   const nextScenario = () => {
     if (currentScenario < scenarios.length - 1) {
       const nextScenarioIndex = currentScenario + 1;
       const currentModifiers = scenarios[currentScenario].nextScenarioModifiers[selectedOption.text];
-      
+
       setScenarios(prevScenarios => {
         const updatedScenarios = [...prevScenarios];
         const nextScenario = { ...updatedScenarios[nextScenarioIndex] };
-        
-        nextScenario.description += ` Due to your previous decision, ${Object.entries(currentModifiers).map(([key, value]) => 
-          `${key.replace(/([A-Z])/g, ' $1').toLowerCase()} is ${value ? 'higher' : 'lower'}`
-        ).join(' and ')}.`;
-        
+
+        const performanceSummary = getPerformanceSummary(score);
+
+        nextScenario.description += ` ${performanceSummary}`;
+
         nextScenario.options.sort(() => Math.random() - 0.5);
-        
+
         updatedScenarios[nextScenarioIndex] = nextScenario;
         return updatedScenarios;
       });
@@ -289,6 +289,20 @@ export default function DatabaseRecoveryGame() {
       setSelectedOption(null);
     } else {
       setGameOver(true);
+    }
+  };
+
+  const getPerformanceSummary = (score) => {
+    if (score <= -10) {
+      return "Poor performance: Mismatched commits and rollbacks have led to significant delays and incoherent data.";
+    } else if (score <= -5) {
+      return "Below average performance: Some decisions have caused delays and data inconsistencies.";
+    } else if (score <= 0) {
+      return "Average performance: The system is operating with some delays and minor data issues.";
+    } else if (score <= 5) {
+      return "Good performance: The right combination of commits and rollbacks has led to a mostly smooth operation.";
+    } else {
+      return "Excellent performance: Optimal decisions have ensured the system operates as expected, especially in critical data areas.";
     }
   };
 
@@ -309,7 +323,7 @@ export default function DatabaseRecoveryGame() {
   return (
     <div className="container mx-auto p-4 bg-gray-100 rounded-lg shadow-lg">
       <h1 className="text-3xl font-bold mb-4 text-center text-blue-600">Enhanced Database Recovery Concepts Game</h1>
-      <p className="mb-4 text-center text-lg">Current Score: {score} (Min: -5, Max: 5)</p>
+      <p className="mb-4 text-center text-lg">Current Score: {score} (Min: -10, Max: 10)</p>
       <p className="mb-4 text-center text-lg">Scenario {currentScenario + 1} of {scenarios.length}</p>
       <div className="mb-4 p-4 bg-white rounded-lg shadow-md">
         <h2 className="text-xl font-semibold text-blue-500">Reminder:</h2>
@@ -348,16 +362,16 @@ export default function DatabaseRecoveryGame() {
         </Card>
       ) : (
         <AlertDialog open={gameOver}>
-          <AlertDialogContent>
+          <AlertDialogContent className="bg-white p-4 rounded-lg shadow-lg">
             <AlertDialogHeader>
-              <AlertDialogTitle>Game Over!</AlertDialogTitle>
+              <AlertDialogTitle className="text-blue-600">Game Over!</AlertDialogTitle>
               <AlertDialogDescription>
-                You've completed all scenarios. Your final score is {score} (range: -5 to 5).
-                {score > 0 ? " Great job!" : score < 0 ? " There's room for improvement." : " You balanced the trade-offs well."}
+                You've completed all scenarios. Your final score is {score} (range: -10 to 10).
+                {getPerformanceSummary(score)}
               </AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>
-              <AlertDialogAction onClick={restartGame}>Play Again</AlertDialogAction>
+              <AlertDialogAction onClick={restartGame} className="bg-blue-500 text-white hover:bg-blue-700">Play Again</AlertDialogAction>
             </AlertDialogFooter>
           </AlertDialogContent>
         </AlertDialog>
