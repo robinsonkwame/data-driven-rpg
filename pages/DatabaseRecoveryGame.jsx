@@ -307,14 +307,19 @@ export default function DatabaseRecoveryGame() {
   }
 
   return (
-    <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">Enhanced Database Recovery Concepts Game</h1>
-      <p className="mb-4">Current Score: {score} (Min: -5, Max: 5)</p>
-      <p className="mb-4">Scenario {currentScenario + 1} of {scenarios.length}</p>
+    <div className="container mx-auto p-4 bg-gray-100 rounded-lg shadow-lg">
+      <h1 className="text-3xl font-bold mb-4 text-center text-blue-600">Enhanced Database Recovery Concepts Game</h1>
+      <p className="mb-4 text-center text-lg">Current Score: {score} (Min: -5, Max: 5)</p>
+      <p className="mb-4 text-center text-lg">Scenario {currentScenario + 1} of {scenarios.length}</p>
+      <div className="mb-4 p-4 bg-white rounded-lg shadow-md">
+        <h2 className="text-xl font-semibold text-blue-500">Reminder:</h2>
+        <p><strong>Rollback:</strong> Reverts the database to a previous state, undoing recent changes.</p>
+        <p><strong>Commit:</strong> Saves all changes made during the current transaction to the database.</p>
+      </div>
       {!gameOver ? (
-        <Card>
+        <Card className="mb-4 p-4 bg-white rounded-lg shadow-md">
           <CardHeader>
-            <CardTitle>{scenarios[currentScenario].title}</CardTitle>
+            <CardTitle className="text-2xl font-bold text-blue-500">{scenarios[currentScenario].title}</CardTitle>
           </CardHeader>
           <CardContent>
             <p className="mb-4">{scenarios[currentScenario].description}</p>
@@ -323,7 +328,7 @@ export default function DatabaseRecoveryGame() {
               <Button
                 key={index}
                 onClick={() => handleAnswer(option)}
-                className="mr-2 mb-2"
+                className="mr-2 mb-2 bg-blue-500 text-white hover:bg-blue-700"
               >
                 {option.text}
               </Button>
@@ -334,7 +339,7 @@ export default function DatabaseRecoveryGame() {
                 <p>{selectedOption.outcome}</p>
                 <p className="mt-2 font-semibold">Feedback:</p>
                 <p>{selectedOption.feedback}</p>
-                <Button onClick={nextScenario} className="mt-2">
+                <Button onClick={nextScenario} className="mt-2 bg-blue-500 text-white hover:bg-blue-700">
                   {currentScenario < scenarios.length - 1 ? "Next Scenario" : "Finish Game"}
                 </Button>
               </div>

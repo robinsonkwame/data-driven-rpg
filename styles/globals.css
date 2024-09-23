@@ -90,3 +90,50 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+.container {
+  background-color: #f7fafc;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  color: #2b6cb0;
+}
+
+h2 {
+  color: #3182ce;
+}
+
+p {
+  color: #4a5568;
+}
+
+button {
+  background-color: #3182ce;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #2b6cb0;
+}
+
+.card {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.alert-dialog {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
