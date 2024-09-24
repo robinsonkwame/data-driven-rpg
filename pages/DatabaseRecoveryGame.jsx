@@ -323,12 +323,12 @@ export default function DatabaseRecoveryGame() {
   return (
     <div className="container mx-auto p-4 bg-gray-100 rounded-lg shadow-lg">
       <h1 className="text-3xl font-bold mb-4 text-center text-blue-600">Enhanced Database Recovery Concepts Game</h1>
-      <p className="mb-4 text-center text-lg">Current Score: {score} (Min: -10, Max: 10)</p>
+      <p className="mb-4 text-center text-lg">Current Score: {score}</p>
       <p className="mb-4 text-center text-lg">Scenario {currentScenario + 1} of {scenarios.length}</p>
       <div className="mb-4 p-4 bg-white rounded-lg shadow-md">
         <h2 className="text-xl font-semibold text-blue-500">Reminder:</h2>
-        <p><strong>Rollback:</strong> Reverts the database to a previous state, undoing recent changes.</p>
-        <p><strong>Commit:</strong> Saves all changes made during the current transaction to the database.</p>
+        <p><strong>Rollback/Undo:</strong> Reverts the database to a previous state, undoing recent changes.</p>
+        <p><strong>Commit/Redo:</strong> Saves all changes made during the current transaction to the database.</p>
       </div>
       {!gameOver ? (
         <Card className="mb-4 p-4 bg-white rounded-lg shadow-md">
